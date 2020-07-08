@@ -1,11 +1,14 @@
+document.getElementById("submit").addEventListener("click",handleSubmit)
+
 function handleSubmit(event) {
   event.preventDefault();
 
   // check what text was put into the form field
   let formText = document.getElementById("name").value;
 
-  Client.checkForName(formText);
+  const validURL=Client.checkForURL(formText);
 
+  if (validURL){
   console.log("::: Form Submitted :::");
   fetch("http://localhost:8082/test")
     .then((res) => {
@@ -19,6 +22,9 @@ function handleSubmit(event) {
         "https://api.openweathermap.org/data/2.5/weather?zip=01581,us&appid=5d440dcd25ae78fd3e21200458636bba&units=imperial"
       ).then(function (response) {updateUI(response)})
     );
+}else{
+  alert("invalid url")
+}
 }
 
 const getWeather = async (url) => {

@@ -1,5 +1,4 @@
 const dotenv = require("dotenv").config();
-console.log(process.env.API_ID);
 
 var path = require("path");
 const express = require("express");
@@ -47,3 +46,12 @@ app.get("/test", function (req, res) {
 app.listen(8082, function () {
   console.log("Example app listening on port 8082!");
 });
+
+// textapi.classifyByTaxonomy({
+//     'url': 'http://techcrunch.com/2015/07/16/microsoft-will-never-give-up-on-mobile',
+//     'taxonomy':'iptc-subjectcode'
+//   }, function(error, response) {
+//     if (error === null) {
+//       console.log(response);
+//     }
+//   });
