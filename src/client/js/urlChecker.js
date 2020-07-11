@@ -8,5 +8,4 @@ function checkForURL(inputText) {
         return false
     }
 }
-
 export { checkForURL }

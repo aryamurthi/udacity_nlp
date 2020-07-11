@@ -2,7 +2,6 @@ const dotenv = require("dotenv").config();
 
 var path = require("path");
 const express = require("express");
-const mockAPIResponse = require("./mockAPI.js");
 var bodyParser = require("body-parser");
 var cors = require("cors");
 
@@ -13,11 +12,9 @@ var textapi = new aylien({
   application_key: process.env.API_KEY,
 });
 
-var json = {
-  title: "test json response",
-  message: "this is a message",
-  time: "now",
+var projectData = {
 };
+
 
 const app = express();
 app.use(cors());
@@ -32,26 +29,40 @@ app.use(
 
 app.use(express.static("dist"));
 
-console.log(JSON.stringify(mockAPIResponse));
-
 app.get("/", function (req, res) {
   res.sendFile("dist/index.html");
 });
 
-app.get("/test", function (req, res) {
-  res.json(mockAPIResponse);
-});
+app.post("/addUserEntry", addUserEntry);
+function addUserEntry(req, res) {
+  newEntry = {
+   url: req.body.url,
+  };
+
+  textapi.sentiment({
+    'url': newEntry.url
+  }, function(error, response) {
+    if (error === null) {
+      projectData.text=response.text
+      projectData.polarity=response.polarity
+      projectData.status="Completed"
+      res.send(projectData)
+    }else{
+      projectData={}
+      projectData.status="Failed to Load"
+      res.send(projectData)
+    }
+  });
+}
+//return projectData
+app.get("/projectData", getProjectData);
+function getProjectData(req, res) {
+  res.send(projectData);
+}
 
 // designates what port the app will listen to for incoming requests
 app.listen(8082, function () {
   console.log("Example app listening on port 8082!");
 });
 
-// textapi.classifyByTaxonomy({
-//     'url': 'http://techcrunch.com/2015/07/16/microsoft-will-never-give-up-on-mobile',
-//     'taxonomy':'iptc-subjectcode'
-//   }, function(error, response) {
-//     if (error === null) {
-//       console.log(response);
-//     }
-//   });
+
