@@ -13,18 +13,17 @@ function handleSubmit(event) {
   const validURL = Client.checkForURL(formText);
 
   if (validURL) {
-    console
-      .log("::: Form Submitted :::")
-     
-        postData("/addUserEntry", {
-          url: formText,
-        }).then(
-      
-        //update UI with alyien text API response
-        async () => {
-          updateUI();
-        }
-        );
+    console.log("::: Form Submitted :::");
+    document.getElementById("status").innerHTML = "Loading...";
+
+    postData("/addUserEntry", {
+      url: formText,
+    }).then(
+      //update UI with alyien text API response
+      async () => {
+        updateUI();
+      }
+    );
   } else {
     alert("invalid url");
   }
