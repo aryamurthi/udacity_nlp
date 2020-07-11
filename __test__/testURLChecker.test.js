@@ -12,5 +12,3 @@ describe("Testing the URL is determined to be valid or invalid", () => {
            // The general syntax is `expect(myFunction(arg1, arg2, ...)).toEqual(expectedValue);`, where `toEqual()` is a matcher
            expect(checkForURL(url)).toBeTruthy();
 })});
-
-export default describe()
