@@ -14,7 +14,7 @@ function handleSubmit(event) {
     console.log("::: Form Submitted :::");
     document.getElementById("status").innerHTML = "Loading...";
 
-    postData("/addUserEntry", {
+    postData("http://localhost:8082/addUserEntry", {
       url: formText,
     }).then(
       //update UI with alyien text API response
@@ -29,7 +29,7 @@ function handleSubmit(event) {
 
 const updateUI = async () => {
   try {
-    const request = await fetch("/projectData");
+    const request = await fetch("http://localhost:8082/projectData");
     const projectData = await request.json();
     document.getElementById("status").innerHTML = projectData.status;
     document.getElementById("polarity").innerHTML = projectData.polarity;

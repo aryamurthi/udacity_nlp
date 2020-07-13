@@ -9,7 +9,7 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: 'bundle.min.js',
         libraryTarget: 'var',
-        library: 'Client'
+        library: 'Client',
     },
     mode: 'development',
     devtool: 'source-map',
